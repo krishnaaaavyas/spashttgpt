@@ -1,0 +1,470 @@
+.chatWindow {
+  background: var(--bg-primary);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--bg-secondary);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  background: var(--bg-tertiary);
+  transform: scale(1.05);
+}
+
+.navbar span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-hover);
+  transform: scale(1.05);
+}
+
+.userIconDiv {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userIcon {
+  background: var(--accent-gradient);
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+  color: white;
+}
+
+.userIcon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 122, 204, 0.4);
+}
+
+[data-theme="light"] .userIcon {
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+}
+
+[data-theme="light"] .userIcon:hover {
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+/* Chat input */
+.chatInput {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.inputBox {
+  width: 100%;
+  position: relative;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* make input take remaining space and leave room for controls */
+input {
+  flex: 1 1 auto;
+  min-width: 0; /* allow shrinking inside flex */
+  border: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  backdrop-filter: blur(10px);
+  color: var(--text-primary);
+  padding: 16px 160px 16px 20px; /* reserve space on right for controls */
+  font-size: 0.95rem;
+  border-radius: 24px;
+  transition: all 0.2s ease;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 var(--border-color);
+}
+
+[data-theme="light"] input {
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 var(--border-color);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 
+    0 0 0 2px rgba(0, 122, 204, 0.2),
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 var(--border-color);
+  background: var(--bg-tertiary);
+}
+
+[data-theme="light"] input:focus {
+  box-shadow: 
+    0 0 0 2px rgba(0, 102, 204, 0.2),
+    0 4px 20px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 var(--border-color);
+}
+
+input::placeholder {
+  color: var(--text-subtle);
+}
+
+#submit {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  font-size: 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-gradient);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+}
+
+#submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 122, 204, 0.4);
+}
+
+[data-theme="light"] #submit {
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+}
+
+[data-theme="light"] #submit:hover {
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+#submit:active {
+  transform: scale(0.95);
+}
+
+.info {
+  font-size: 0.85rem;
+  padding: 1rem;
+  color: var(--text-subtle);
+  text-align: center;
+  max-width: 800px;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+/* Loading spinner container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+  
+  .chatInput {
+    padding: 1rem;
+  }
+  
+  input {
+    font-size: 0.9rem;
+    padding: 12px 120px 12px 14px;
+  }
+
+  #submit {
+    height: 36px;
+    width: 36px;
+  }
+}
+
+/* Stream toggle button */
+.stream-toggle {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.stream-toggle.active {
+  background: linear-gradient(90deg,#007acc,#00b4ff);
+  color: white;
+  box-shadow: 0 6px 18px rgba(0,180,255,0.15);
+}
+
+/* ML flags panel */
+.ml-flags-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 120px;
+  background: rgba(0,0,0,0.75);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 320px;
+  z-index: 200;
+  font-size: 13px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  transform-origin: bottom right;
+  animation: panelIn 240ms ease-out;
+  transition: all 220ms ease;
+}
+
+/* Controls container positioned over input to avoid layout shifts */
+.inputBox .controls {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Label styling */
+/* General label styling - more visible, pill-like tokens for controls */
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-subtle);
+  margin-right: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid transparent;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  cursor: default;
+}
+
+/* Label variant for small control tokens placed inside .controls */
+.control-label {
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--text-subtle);
+  background: rgba(0,0,0,0.03);
+  border: 1px solid var(--border-color);
+}
+
+/* Make labels keyboard-focus friendly if they are focusable */
+label:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,122,204,0.12);
+  border-color: rgba(0,122,204,0.35);
+}
+
+/* Light theme tweaks */
+[data-theme="light"] label {
+  background: rgba(0,0,0,0.02);
+}
+
+/* Utility for screen-reader-only text */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Make stream-toggle slightly smaller to better fit */
+.stream-toggle {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  input { padding-right: 110px; }
+  .inputBox .controls { right: 8px; gap: 6px; }
+}
+
+.hallucination-warning {
+  border-left: 4px solid #ff7b7b;
+  background: linear-gradient(90deg, rgba(255,123,123,0.06), rgba(255,123,123,0.02));
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.hallucination-warning strong { color: #ff7b7b }
+
+/* Empty placeholder for ML flags */
+.ml-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: rgba(255,255,255,0.9);
+  font-size: 13px;
+}
+
+.ml-empty::before{
+  content: "\26A0"; /* small warning glyph */
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  transform: translateY(-1px);
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* collapsed state */
+.ml-flags-panel.collapsed {
+  width: 44px;
+  height: 44px;
+  padding: 6px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ml-flags-panel .collapsed-icon {
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+/* flag badges and colors */
+.flag-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.flag-bias { background: linear-gradient(90deg,#fff8e1,#ffe0b2); color:#7a4500; box-shadow: 0 6px 18px rgba(250,180,60,0.06); }
+.flag-fraud { background: linear-gradient(90deg,#fff0f6,#ffd6e8); color:#8a0651; box-shadow: 0 6px 18px rgba(200,30,80,0.06); }
+.flag-hallucination { background: linear-gradient(90deg,#fff4f4,#ffd9d9); color:#b00020; box-shadow: 0 8px 30px rgba(176,0,32,0.06); }
+.flag-pii { background: linear-gradient(90deg,#f6f0ff,#e8d7ff); color:#5b2a86; box-shadow: 0 6px 18px rgba(90,40,140,0.05); }
+
+/* arrange badges */
+.flag-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+
+/* pop-in animation for badges */
+@keyframes badgePop {
+  from { transform: scale(0.88); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.flag-badge { animation: badgePop 220ms cubic-bezier(.2,.9,.32,1); transition: transform 160ms ease, box-shadow 160ms ease; }
+.flag-badge:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+
+/* main highlighted prediction */
+.flag-main { box-shadow: 0 10px 30px rgba(0,0,0,0.12); transform: translateY(-2px); }
+
+/* hallucination pulse */
+.hallucination-warning {
+  border-left: 4px solid #ff4d4f;
+  background: linear-gradient(90deg, rgba(255,77,79,0.08), rgba(255,77,79,0.02));
+  padding: 10px;
+  border-radius: 8px;
+  animation: pulseWarn 1500ms ease-in-out infinite;
+}
+
+@keyframes pulseWarn {
+  0% { box-shadow: 0 0 0 0 rgba(255,77,79,0.12); }
+  70% { box-shadow: 0 8px 30px rgba(255,77,79,0.04); }
+  100% { box-shadow: 0 0 0 0 rgba(255,77,79,0.00); }
+}
+
+/* small control row inside panel */
+.ml-flags-panel .panel-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+

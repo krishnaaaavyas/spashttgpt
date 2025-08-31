@@ -1,0 +1,355 @@
+/* === CREATIVE LOADING ANIMATIONS === */
+
+/* Container for all loading animations */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
+}
+
+/* 1. Neural Network Loading */
+.neural-loader {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neural-node {
+  width: 12px;
+  height: 12px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  position: absolute;
+  animation: neuralPulse 2s ease-in-out infinite;
+}
+
+.neural-node:nth-child(1) {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 0s;
+}
+
+.neural-node:nth-child(2) {
+  top: 25%;
+  left: 25%;
+  animation-delay: 0.2s;
+}
+
+.neural-node:nth-child(3) {
+  top: 25%;
+  right: 25%;
+  animation-delay: 0.4s;
+}
+
+.neural-node:nth-child(4) {
+  bottom: 25%;
+  left: 25%;
+  animation-delay: 0.6s;
+}
+
+.neural-node:nth-child(5) {
+  bottom: 25%;
+  right: 25%;
+  animation-delay: 0.8s;
+}
+
+.neural-node:nth-child(6) {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 1s;
+}
+
+.neural-node::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(var(--accent-primary), transparent);
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  opacity: 0;
+  animation: connectionPulse 2s ease-in-out infinite;
+  animation-delay: inherit;
+}
+
+@keyframes neuralPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+    box-shadow: 0 0 0 0 var(--accent-primary);
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+@keyframes connectionPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.8; }
+}
+
+/* 2. Quantum Dots Animation */
+.quantum-loader {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantum-dot {
+  width: 16px;
+  height: 16px;
+  background: var(--accent-gradient);
+  border-radius: 50%;
+  position: absolute;
+  animation: quantumOrbit 3s linear infinite;
+}
+
+.quantum-dot:nth-child(1) {
+  animation-delay: 0s;
+  animation-duration: 2s;
+}
+
+.quantum-dot:nth-child(2) {
+  animation-delay: 0.5s;
+  animation-duration: 2.5s;
+  transform: rotate(60deg);
+}
+
+.quantum-dot:nth-child(3) {
+  animation-delay: 1s;
+  animation-duration: 3s;
+  transform: rotate(120deg);
+}
+
+@keyframes quantumOrbit {
+  0% {
+    transform: rotate(0deg) translateX(40px) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(90deg) translateX(40px) rotate(-90deg) scale(0.8);
+    opacity: 0.7;
+  }
+  50% {
+    transform: rotate(180deg) translateX(40px) rotate(-180deg) scale(1.2);
+    opacity: 0.5;
+  }
+  75% {
+    transform: rotate(270deg) translateX(40px) rotate(-270deg) scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) translateX(40px) rotate(-360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* 3. Matrix Rain Effect */
+.matrix-loader {
+  width: 120px;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.matrix-column {
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(transparent, var(--accent-primary), transparent);
+  position: absolute;
+  animation: matrixRain 2s linear infinite;
+}
+
+.matrix-column:nth-child(1) {
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 1.5s;
+}
+
+.matrix-column:nth-child(2) {
+  left: 25%;
+  animation-delay: 0.3s;
+  animation-duration: 2s;
+}
+
+.matrix-column:nth-child(3) {
+  left: 40%;
+  animation-delay: 0.6s;
+  animation-duration: 1.8s;
+}
+
+.matrix-column:nth-child(4) {
+  left: 55%;
+  animation-delay: 0.9s;
+  animation-duration: 2.2s;
+}
+
+.matrix-column:nth-child(5) {
+  left: 70%;
+  animation-delay: 1.2s;
+  animation-duration: 1.7s;
+}
+
+.matrix-column:nth-child(6) {
+  left: 85%;
+  animation-delay: 1.5s;
+  animation-duration: 2.1s;
+}
+
+@keyframes matrixRain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* 4. Holographic Loading */
+.holographic-loader {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.holographic-ring {
+  width: 60px;
+  height: 60px;
+  border: 3px solid transparent;
+  border-top: 3px solid var(--accent-primary);
+  border-right: 3px solid var(--accent-primary);
+  border-radius: 50%;
+  position: absolute;
+  animation: holographicSpin 2s linear infinite;
+}
+
+.holographic-ring:nth-child(1) {
+  animation-delay: 0s;
+  filter: hue-rotate(0deg);
+}
+
+.holographic-ring:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  animation-delay: 0.5s;
+  animation-direction: reverse;
+  filter: hue-rotate(120deg);
+}
+
+.holographic-ring:nth-child(3) {
+  width: 30px;
+  height: 30px;
+  animation-delay: 1s;
+  filter: hue-rotate(240deg);
+}
+
+.holographic-core {
+  width: 15px;
+  height: 15px;
+  background: var(--accent-gradient);
+  border-radius: 50%;
+  position: absolute;
+  animation: holographicCore 2s ease-in-out infinite;
+  z-index: 10;
+}
+
+@keyframes holographicSpin {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes holographicCore {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px var(--accent-primary);
+  }
+  50% {
+    transform: scale(1.5);
+    box-shadow: 0 0 30px var(--accent-primary);
+  }
+}
+
+/* 5. Typewriter Loading */
+.typewriter-loader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.typewriter-text::after {
+  content: '|';
+  animation: typewriterBlink 1s infinite;
+  color: var(--accent-primary);
+}
+
+.typewriter-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.typewriter-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  animation: typewriterDots 1.5s ease-in-out infinite;
+}
+
+.typewriter-dot:nth-child(1) { animation-delay: 0s; }
+.typewriter-dot:nth-child(2) { animation-delay: 0.2s; }
+.typewriter-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typewriterBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes typewriterDots {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
