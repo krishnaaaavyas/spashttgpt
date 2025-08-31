@@ -3,6 +3,8 @@ import torch.nn as nn
 from transformers import AutoTokenizer, AutoModel
 from torch.utils.data import Dataset, DataLoader
 import os
+import hashlib
+import sys
 
 # Import your custom classes (make sure they match your original definitions)
 class RiskDataset(Dataset):
@@ -49,10 +51,28 @@ class RiskClassifier(nn.Module):
         output = self.drop(output.last_hidden_state[:, 0, :])
         return self.out(output)
 
-def load_trained_model(model_dir="saved_medbert_model"):
+def verify_file_integrity(file_path, expected_sha256):
+    """
+    Verify the SHA-256 hash of the file matches the expected value.
+    """
+    sha256 = hashlib.sha256()
+    try:
+        with open(file_path, 'rb') as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                sha256.update(chunk)
+        file_hash = sha256.hexdigest()
+        return file_hash == expected_sha256
+    except Exception as e:
+        print(f"Error verifying file integrity: {e}")
+        return False
+
+def load_trained_model(model_dir="saved_medbert_model", expected_weights_sha256=None):
     """
     Load the trained model from the saved directory
     """
+    if expected_weights_sha256 is None:
+        raise RuntimeError("A known good SHA-256 hash for the weights file must be provided for integrity verification.")
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     print(f"Loading model from {model_dir}...")
@@ -60,6 +80,10 @@ def load_trained_model(model_dir="saved_medbert_model"):
     
     # Load the saved metadata and weights
     checkpoint_path = os.path.join(model_dir, "classifier_weights.pth")
+
+    if not verify_file_integrity(checkpoint_path, expected_weights_sha256):
+        raise RuntimeError("Model weights file failed integrity check. Aborting load.")
+
     checkpoint = torch.load(checkpoint_path, map_location=device)
     
     # Extract configuration
@@ -153,7 +177,13 @@ def predict_batch(model, tokenizer, texts, label_mapping, max_len, device, batch
 
 if __name__ == "__main__":
     # Load the model
-    model, tokenizer, label_mapping, config, device = load_trained_model()
+    # You must provide the expected SHA-256 hash of the weights file for integrity verification
+    # Example: expected_sha256 = "your_known_good_sha256_hash_here"
+    if len(sys.argv) < 2:
+        print("Error: You must provide the expected SHA-256 hash of the weights file as a command-line argument.")
+        sys.exit(1)
+    expected_sha256 = sys.argv[1]
+    model, tokenizer, label_mapping, config, device = load_trained_model(expected_weights_sha256=expected_sha256)
     
     # Test with a single prediction
     print("\n" + "="*60)
